@@ -1,4 +1,4 @@
-nymea-plugins-genericthings (1.4.0-1) jammy; urgency=medium
+nymea-plugins-genericthings (1.4.0-1) qa; urgency=medium
 
   [ Michael Zanetti ]
   * Sensors: Add a generic fire sensor
