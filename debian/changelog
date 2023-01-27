@@ -1,4 +1,29 @@
-nymea-plugins-genericthings (1.4.0-1) qa; urgency=medium
+nymea-plugins-genericthings (1.5.1-1) jammy; urgency=medium
+
+  * Software unchanged: Bumping Debian revision for Consolinno HEMS v0.2.2   
+
+ -- Leonhard Heizinger <l.heizinger@consolinno.de>  Wed, 14 Dec 2022 10:43:41 +0100
+
+nymea-plugins-genericthings (1.5.1) jammy; urgency=medium
+
+
+ -- jenkins <developer@nymea.io>  Mon, 07 Nov 2022 12:48:29 +0100
+
+nymea-plugins-genericthings (1.5.0) jammy; urgency=medium
+
+  [ Michael Zanetti ]
+  * Sensors: Update gas sensor to changes in interface
+  * Sensors: Update co sensor to latest interface
+  * Add missing "Replaces" tag tp packages
+
+ -- jenkins <developer@nymea.io>  Tue, 18 Oct 2022 01:19:26 +0200
+
+nymea-plugins-genericthings (1.4.1) jammy; urgency=medium
+
+
+ -- jenkins <developer@nymea.io>  Fri, 23 Sep 2022 16:34:21 +0200
+
+nymea-plugins-genericthings (1.4.0) jammy; urgency=medium
 
   [ Michael Zanetti ]
   * Sensors: Add a generic fire sensor
