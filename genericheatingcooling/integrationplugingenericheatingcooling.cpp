@@ -51,6 +51,12 @@ void IntegrationPluginGenericHeatingCooling::setupThing(ThingSetupInfo *info)
             if (paramTypeId == thermostatSettingsTemperatureDifferenceParamTypeId) {
                 thermostatCheckPowerOutputState(thing);
             }
+            if (paramTypeId == thermostatSettingsMinTargetTemperatureParamTypeId) {
+                thing->setStateMinValue(thermostatTargetTemperatureStateTypeId, value);
+            }
+            if (paramTypeId == thermostatSettingsMaxTargetTemperatureParamTypeId) {
+                thing->setStateMaxValue(thermostatTargetTemperatureStateTypeId, value);
+            }
         });
     } else if (thing->thingClassId() == sgReadyThingClassId) {
         bool relay1 = thing->stateValue(sgReadyRelay1StateTypeId).toBool();
@@ -185,6 +191,10 @@ void IntegrationPluginGenericHeatingCooling::executeAction(ThingActionInfo *info
 
 void IntegrationPluginGenericHeatingCooling::thermostatCheckPowerOutputState(Thing *thing)
 {
+    bool autoControl = thing->setting(thermostatSettingsAutoControlParamTypeId).toBool();
+    if (!autoControl) {
+        return;
+    }
     double targetTemperature = thing->stateValue(thermostatTargetTemperatureStateTypeId).toDouble();
     double actualTemperature = thing->stateValue(thermostatTemperatureStateTypeId).toDouble();
     double temperatureDifference = thing->setting(thermostatSettingsTemperatureDifferenceParamTypeId).toDouble();
