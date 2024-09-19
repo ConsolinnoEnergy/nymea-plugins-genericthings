@@ -1,4 +1,4 @@
-nymea-plugins-genericthings (1.7.0-3) jammy; urgency=medium
+nymea-plugins-genericthings (1.7.0-4) jammy; urgency=medium
 
   [ Michael Zanetti ]
   * Sensors: Add min/max values to co2sensor
