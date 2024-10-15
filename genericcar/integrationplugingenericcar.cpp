@@ -44,8 +44,21 @@ void IntegrationPluginGenericCar::setupThing(ThingSetupInfo *info)
 {
     Thing *thing = info->thing();
 
+    qCWarning(dcGenericCar()) << "#### Before State ####";
+    qCWarning(dcGenericCar()) << "Capacity state" << thing->stateValue(carCapacityStateTypeId).toDouble();
+    qCWarning(dcGenericCar()) << "Capacity param" << thing->setting(carSettingsCapacityParamTypeId).toDouble();
+
+    qCWarning(dcGenericCar()) << "Min current state" << thing->stateValue(carMinChargingCurrentStateTypeId).toUInt();
+    qCWarning(dcGenericCar()) << "Min current param" << thing->setting(carSettingsMinChargingCurrentParamTypeId).toUInt();
+
+    qCWarning(dcGenericCar()) << "Phase count state" << thing->stateValue(carPhaseCountStateTypeId).toUInt();
+    qCWarning(dcGenericCar()) << "Phase count param" << thing->setting(carSettingsPhaseCountParamTypeId).toUInt();
+    
+    qCWarning(dcGenericCar()) << "Executing code..";
+
     // Set the min charging current state if the settings value changed
     connect(thing, &Thing::settingChanged, this, [thing](const ParamTypeId &paramTypeId, const QVariant &value){
+        qCWarning(dcGenericCar()) << "Setting" << paramTypeId << "changed to" << value;
         if (paramTypeId == carSettingsCapacityParamTypeId) {
             thing->setStateValue(carCapacityStateTypeId, value);
         } else if (paramTypeId == carSettingsMinChargingCurrentParamTypeId) {
@@ -54,16 +67,38 @@ void IntegrationPluginGenericCar::setupThing(ThingSetupInfo *info)
         } else if (paramTypeId == carSettingsPhaseCountParamTypeId) {
             thing->setStateValue(carPhaseCountStateTypeId, value);
         }
+
+        qCWarning(dcGenericCar()) << "#### In connect ####";
+        qCWarning(dcGenericCar()) << "Capacity state" << thing->stateValue(carCapacityStateTypeId).toDouble();
+        qCWarning(dcGenericCar()) << "Capacity param" << thing->setting(carSettingsCapacityParamTypeId).toDouble();
+
+        qCWarning(dcGenericCar()) << "Min current state" << thing->stateValue(carMinChargingCurrentStateTypeId).toUInt();
+        qCWarning(dcGenericCar()) << "Min current param" << thing->setting(carSettingsMinChargingCurrentParamTypeId).toUInt();
+
+        qCWarning(dcGenericCar()) << "Phase count state" << thing->stateValue(carPhaseCountStateTypeId).toUInt();
+        qCWarning(dcGenericCar()) << "Phase count param" << thing->setting(carSettingsPhaseCountParamTypeId).toUInt();
     });
 
     // Migration from earlier versions (pre 1.3) which had the capacity setting as a writable state.
-    thing->setSettingValue(carSettingsCapacityParamTypeId, thing->stateValue(carCapacityStateTypeId));
+    // thing->setSettingValue(carSettingsCapacityParamTypeId, thing->stateValue(carCapacityStateTypeId));
+
+    // Set the inital state value
+    thing->setStateValue(carMinChargingCurrentStateTypeId, thing->setting(carSettingsMinChargingCurrentParamTypeId));
+    thing->setStateValue(carCapacityStateTypeId, thing->setting(carSettingsCapacityParamTypeId));
+    thing->setStateValue(carPhaseCountStateTypeId, thing->setting(carSettingsPhaseCountParamTypeId));
 
     // Finish the setup
     info->finish(Thing::ThingErrorNoError);
 
-    // Set the inital state value
-    thing->setStateValue(carMinChargingCurrentStateTypeId, thing->setting(carSettingsMinChargingCurrentParamTypeId));
+    qCWarning(dcGenericCar()) << "#### After State ####";
+    qCWarning(dcGenericCar()) << "Capacity state" << thing->stateValue(carCapacityStateTypeId).toDouble();
+    qCWarning(dcGenericCar()) << "Capacity param" << thing->setting(carSettingsCapacityParamTypeId).toDouble();
+
+    qCWarning(dcGenericCar()) << "Min current state" << thing->stateValue(carMinChargingCurrentStateTypeId).toUInt();
+    qCWarning(dcGenericCar()) << "Min current param" << thing->setting(carSettingsMinChargingCurrentParamTypeId).toUInt();
+
+    qCWarning(dcGenericCar()) << "Phase count state" << thing->stateValue(carPhaseCountStateTypeId).toUInt();
+    qCWarning(dcGenericCar()) << "Phase count param" << thing->setting(carSettingsPhaseCountParamTypeId).toUInt();
 }
 
 void IntegrationPluginGenericCar::executeAction(ThingActionInfo *info)
