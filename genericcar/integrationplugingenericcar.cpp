@@ -46,7 +46,7 @@ void IntegrationPluginGenericCar::setupThing(ThingSetupInfo *info)
 
     // Set the min charging current state if the settings value changed
     connect(thing, &Thing::settingChanged, this, [thing](const ParamTypeId &paramTypeId, const QVariant &value){
-        qCWarning(dcGenericCar()) << "Setting" << paramTypeId << "changed to" << value;
+        qCDebug(dcGenericCar()) << "Setting" << paramTypeId << "changed to" << value;
         if (paramTypeId == carSettingsCapacityParamTypeId) {
             thing->setStateValue(carCapacityStateTypeId, value);
         } else if (paramTypeId == carSettingsMinChargingCurrentParamTypeId) {
