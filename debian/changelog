@@ -1,3 +1,9 @@
+nymea-plugins-genericthings (1.7.1) jammy; urgency=medium
+
+  * Fix car settings and states being incorrect after reboot
+
+ -- Luis Reber <l.reber@consolinno.de>  Wed, 16 Oct 2024 +0200
+
 nymea-plugins-genericthings (1.7.0-4) jammy; urgency=medium
 
   [ Michael Zanetti ]
