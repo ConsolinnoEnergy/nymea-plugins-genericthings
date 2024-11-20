@@ -1,4 +1,4 @@
-nymea-plugins-genericthings (1.7.1) jammy; urgency=medium
+nymea-plugins-genericthings (1.7.1-1) jammy; urgency=medium
 
   * Fix car settings and states being incorrect after reboot
 
