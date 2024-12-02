@@ -46,6 +46,7 @@ void IntegrationPluginGenericCar::setupThing(ThingSetupInfo *info)
 
     // Set the min charging current state if the settings value changed
     connect(thing, &Thing::settingChanged, this, [thing](const ParamTypeId &paramTypeId, const QVariant &value){
+        qCDebug(dcGenericCar()) << "Setting" << paramTypeId << "changed to" << value;
         if (paramTypeId == carSettingsCapacityParamTypeId) {
             thing->setStateValue(carCapacityStateTypeId, value);
         } else if (paramTypeId == carSettingsMinChargingCurrentParamTypeId) {
@@ -56,14 +57,20 @@ void IntegrationPluginGenericCar::setupThing(ThingSetupInfo *info)
         }
     });
 
-    // Migration from earlier versions (pre 1.3) which had the capacity setting as a writable state.
-    thing->setSettingValue(carSettingsCapacityParamTypeId, thing->stateValue(carCapacityStateTypeId));
+    // Migration from earlier versions (pre 1.3) which had the capacity setting as a writable state (???).
+    // This causes the user configured setting to be set to the default value 50 after a reboot.
+    // TODO: should likely be removed
+    //
+    // thing->setSettingValue(carSettingsCapacityParamTypeId, thing->stateValue(carCapacityStateTypeId));
+
+    // Set the inital state value to the configured user settings
+    // Takes effect after a restart or reboot. Important to have the correct states after a device reboot.
+    thing->setStateValue(carMinChargingCurrentStateTypeId, thing->setting(carSettingsMinChargingCurrentParamTypeId));
+    thing->setStateValue(carCapacityStateTypeId, thing->setting(carSettingsCapacityParamTypeId));
+    thing->setStateValue(carPhaseCountStateTypeId, thing->setting(carSettingsPhaseCountParamTypeId));
 
     // Finish the setup
     info->finish(Thing::ThingErrorNoError);
-
-    // Set the inital state value
-    thing->setStateValue(carMinChargingCurrentStateTypeId, thing->setting(carSettingsMinChargingCurrentParamTypeId));
 }
 
 void IntegrationPluginGenericCar::executeAction(ThingActionInfo *info)
